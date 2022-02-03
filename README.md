@@ -95,3 +95,10 @@ $ curl --request GET --url http://localhost:3333/increment/hello%20world
 { "hello world": 20 }
 ```
 
+# Load Testing
+
+```bash
+brew update && brew install vegeta
+# 60s 50req/s (3000 req)
+vegeta attack -duration 60s -targets=vegueta
+```
