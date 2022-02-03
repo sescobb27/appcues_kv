@@ -73,6 +73,9 @@ defmodule AppcuesIncrement.KV.Dist do
   end
 
   defp sync_state_to_db(state) do
+    # This approach will work until thousands of keys, when reaching out couple
+    # of hundreds of thousands of keys, it will be better to conver it to a batch
+    # update
     Enum.reduce(state, %{}, fn
       {_key, %{logs: []}}, acc ->
         # do nothing if no new logs
