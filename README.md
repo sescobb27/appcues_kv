@@ -100,10 +100,20 @@ $ curl --request GET --url http://localhost:3333/increment/hello%20world
 ## NOTE:
 
 Take into account that the Dist strategy is eventually consistent so it will take
-tome time (5sec by default to sync state to DB)
+tome time (5sec by default to sync state to DB). Also this is a single node test
+as we would need a load balancer on top of this to distribute the load
 
 ```bash
 brew update && brew install vegeta
-# 60s 50req/s (3000 req)
-vegeta attack -duration 60s -targets=vegueta
+# 120s 100req/s (12000 req)
+vegeta attack -duration 120s -rate=100/s -targets=vegueta
 ```
+
+## Plot
+
+![Benchmarking Plot](./vegeta-plot.png)
+
+## Consistent Result
+
+![Result](./kv_result.png)
+
