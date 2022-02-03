@@ -5,8 +5,10 @@ defmodule AppcuesIncrementWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AppcuesIncrementWeb do
+  scope "/", AppcuesIncrementWeb do
     pipe_through :api
+    post("/increment", KVController, :create)
+    get("/increment/:key", KVController, :show)
   end
 
   # Enables LiveDashboard only for development
@@ -19,7 +21,7 @@ defmodule AppcuesIncrementWeb.Router do
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 
-    scope "/" do
+    scope "/live" do
       pipe_through [:fetch_session, :protect_from_forgery]
 
       live_dashboard "/dashboard", metrics: AppcuesIncrementWeb.Telemetry

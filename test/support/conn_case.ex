@@ -25,6 +25,7 @@ defmodule AppcuesIncrementWeb.ConnCase do
       import AppcuesIncrementWeb.ConnCase
 
       alias AppcuesIncrementWeb.Router.Helpers, as: Routes
+      alias AppcuesIncrement.Repo
 
       # The default endpoint for testing
       @endpoint AppcuesIncrementWeb.Endpoint
@@ -35,5 +36,17 @@ defmodule AppcuesIncrementWeb.ConnCase do
     pid = Ecto.Adapters.SQL.Sandbox.start_owner!(AppcuesIncrement.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def wait_for(timeout \\ 1000, f)
+  def wait_for(0, _), do: {:error, "Error - Timeout"}
+
+  def wait_for(timeout, f) do
+    if f.() do
+      :ok
+    else
+      :timer.sleep(10)
+      wait_for(timeout - 10, f)
+    end
   end
 end

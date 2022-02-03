@@ -9,7 +9,14 @@ import Config
 
 config :appcues_increment,
   ecto_repos: [AppcuesIncrement.Repo],
-  generators: [binary_id: true]
+  generators: [binary_id: true],
+  # values are: ["sync", "dist"]
+  strategy: "dist",
+  sync_interval: 5000
+
+config :appcues_increment, AppcuesIncrement.Repo,
+  migration_primary_key: [type: :uuid],
+  migration_timestamps: [type: :utc_datetime]
 
 # Configures the endpoint
 config :appcues_increment, AppcuesIncrementWeb.Endpoint,
@@ -25,6 +32,11 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :statix, AppcuesIncrement.Telemetry.StatsdReporter,
+  prefix: "appcues_kv",
+  pool_size: 5,
+  tags: ["env:#{Mix.env()}"]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
