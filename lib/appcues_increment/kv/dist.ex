@@ -1,4 +1,7 @@
 defmodule AppcuesIncrement.KV.Dist do
+  @moduledoc """
+  Dist strategy to use append only logs and aggregation to scale up key counters
+  """
   @behaviour AppcuesIncrement.KV.Strategy
   use GenServer
 

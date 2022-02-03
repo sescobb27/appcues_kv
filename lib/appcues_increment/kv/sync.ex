@@ -1,4 +1,7 @@
 defmodule AppcuesIncrement.KV.Sync do
+  @moduledoc """
+  Sync strategy to call DB directly to create key counters
+  """
   @behaviour AppcuesIncrement.KV.Strategy
 
   @impl AppcuesIncrement.KV.Strategy
