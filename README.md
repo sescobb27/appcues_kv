@@ -97,6 +97,11 @@ $ curl --request GET --url http://localhost:3333/increment/hello%20world
 
 # Load Testing
 
+## NOTE:
+
+Take into account that the Dist strategy is eventually consistent so it will take
+tome time (5sec by default to sync state to DB)
+
 ```bash
 brew update && brew install vegeta
 # 60s 50req/s (3000 req)
